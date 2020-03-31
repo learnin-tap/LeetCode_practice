@@ -1,1 +1,2 @@
-# LeetCode_practice
+> 记录我从 2020.04开始至今的算法代码、刷题记录，有JavaScript和C++两个版本
+
