@@ -1,8 +1,9 @@
 /**
  * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
  * }
  */
 /**
@@ -11,28 +12,43 @@
  */
 var preorderTraversal = function(root) {
     // 递归写法
-    // let res = []
-    // let preOrderTravelNode = function(node) {
-    //     if(node) {
-    //         res.push(node.val)
-    //         preOrderTravelNode(node.left)
-    //         preOrderTravelNode(node.right)
+    // if(!root)
+    //     return []
+    // const res = []
+    // const preorder = (root) => {
+    //     if(root) {
+    //         res.push(root.val)
+    //         preorder(root.left)
+    //         preorder(root.right)
     //     }
     // }
-    // preOrderTravelNode(root)
+    // preorder(root)
     // return res
 
+    // 迭代写法1
+    // const res = [], stack = []
+    // while(root || stack.length) {
+    //     while(root) {
+    //         stack.push(root)
+    //         res.push(root.val)
+    //         root = root.left 
+    //     }
+    //     root = stack.pop()
+    //     root = root.right
+    // }
+    // return res
 
-    // 非递归写法
-    let res = [], stack = []
-    while(root || stack.length > 0) {
-        while(root) {
-            res.push(root.val)
-            stack.push(root)
-            root = root.left
-        }
-        root = stack.pop()
-        root = root.right
+    // 迭代写法2
+    if(!root)
+        return []
+    const res = [], stack=[root]
+    while(stack.length) {
+        const cur = stack.pop()
+        res.push(cur.val)
+        if(cur.right)
+            stack.push(cur.right)
+        if(cur.left)
+            stack.push(cur.left)
     }
     return res
 };
