@@ -4,13 +4,15 @@
  * @return {number[]}
  */
 var intersection = function(nums1, nums2) {
-    var res=[];
-    for(let i=0;i<nums1.length;i++){
-        for(let j=0;j<nums2.length;j++){
-            var flag=res.indexOf(nums1[i]);
-            if(flag==-1 && nums1[i]==nums2[j])
-                res.push(nums1[i]);
+    // return [...new Set(nums1)].filter(item => nums2.includes(item))
+    const res = [], map = {}
+    for(let item of nums1)
+        map[item] = true
+    for(let item of nums2) {
+        if(map[item]) {
+            res.push(item)
+            map[item]  =false
         }
     }
-    return res;
+  return res;
 };
