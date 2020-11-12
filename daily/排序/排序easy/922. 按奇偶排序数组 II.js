@@ -2,24 +2,17 @@
  * @param {number[]} A
  * @return {number[]}
  */
-// 还有种写法是再开一个数组出来存放，这种写法时间复杂度比下面的好
 var sortArrayByParityII = function(A) {
-    for(let i=0 ;i<A.length; i++) {
-        if(i%2==0 && A[i]%2!==0) {
-            for(let j=i+1; j<A.length; j++){
-                if(A[j]%2==0){
-                    [ A[i], A[j] ] = [ A[j], A[i] ]
-                    break
-                }
-            }
-        }
-        else if(i%2!=0 && A[i]%2==0) {
-            for(let j=i+1; j<A.length; j++){
-                if(A[j]%2!=0){
-                    [ A[i], A[j] ] = [ A[j], A[i] ]
-                    break
-                }
-            }
+    let i = 0, j = 1
+    while(i<A.length && j<A.length) {
+        while(i<A.length && A[i] % 2 == 0)    //偶数索引上的为偶数
+            i += 2
+        while(i<A.length && A[j] % 2 == 1)    //奇数索引上的为奇数
+            j += 2
+        if(i<A.length && j<A.length) {  //越界循环直接结束
+            [A[i],A[j]] = [A[j],A[i]]
+            i += 2
+            j += 2
         }
     }
     return A
