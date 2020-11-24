@@ -5,37 +5,34 @@
 // 1.将字符串字典序分割成数组
 // 2.用哈希表存储对应字母和出现次数
 // 3.用两个数组分别从哈希表中取出祖母和对应次数
-// 4.再用一个二维数组存放顺序遍历的值（在能取到该字母情况下）
+// 4.再用数组存放顺序遍历的值（在能取到该字母情况下）,在末尾合并
 // 5.偶数顺序，奇数逆序取出来并返回
 var sortString = function(s) {
-    let map = new Map()
-    s=s.split('').sort().join('')
-    for(let i=0; i<s.length; i++) {
+    const map = new Map()
+    // s = s.split('').sort((a,b)=>a.localeCompare(b))
+    s = s.split('').sort()  //默认字典序
+    let len = s.length
+    for(let i=0; i<len; i++) {
         if(map.has(s[i]))
             map.set(s[i],map.get(s[i])+1)
         else
             map.set(s[i],1)
     }
-    let m = [...map.values()], n = [...map.keys()], sum = 0, count = 0, res= []
-    m.forEach(item=>{sum += item})
-    while(sum)
-    {
-        res[count]=[]
-        for(let i=0;i<m.length;i++){
-            if(m[i]>0){
-                res[count].push(n[i])
-                sum--
-                m[i]--
+    let res = '', flag = 0, keys = [...map.keys()], values = [...map.values()]
+    while(len) {
+        let item = ''
+        for(let i=0; i<values.length; i++) {
+            if(values[i]>0) {
+                values[i]--
+                len--
+                item += keys[i]
             }
         }
-        count++
-    }
-    let result = ''
-    for(let i=0;i<res.length;i++){
-        if(i%2==0)
-            result+=res[i].join('')
+        if(flag%2==0)
+            res+=item
         else
-            result+=res[i].reverse().join('')
+            res+=item.split('').reverse('').join('')
+        flag++
     }
-    return result
+    return res
 };
