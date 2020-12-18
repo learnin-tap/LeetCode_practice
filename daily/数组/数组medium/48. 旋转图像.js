@@ -3,11 +3,10 @@
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
 var rotate = function(matrix) {
-    const n =matrix.length
-    for(let i=0; i<n; i++)
-        for(let j=i; j<n; j++)
-            [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]]
-    // 前面这个双层循环是沿矩阵副轴交换值
-    matrix.map(item=>item.reverse())  // 交换之后再让每层逆序即可得正确结果  
+    matrix.reverse()    //行置换一下
+    //双层循环是沿矩阵副轴交换值
+    for(let i=0; i<matrix.length; i++)
+        for(let j=0; j<=i; j++)
+            [matrix[i][j],matrix[j][i]] = [matrix[j][i],matrix[i][j]]
     return matrix
 };
