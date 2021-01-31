@@ -1,8 +1,9 @@
 /**
  * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
  * }
  */
 /**
@@ -10,41 +11,40 @@
  * @return {boolean}
  */
 var isSymmetric = function(root) {
-    // // 递归写法
+    // 递归写法
     // if(!root)
     //     return true
-    // let isSame = (left, right) => {
-    //     if(left === null && right === null)
+    // const isMirror = (l, r) => {
+    //     if(!l && !r)
     //         return true
-    //     if(left && right) {
-    //         return left.val === right.val && isSame(left.left, right.right) && isSame(left.right, right.left)
-    //     }
-    //     return false    //这种情况属于有一个有值，有一个空值; 不可能相等，直接false
+    //     if(!l || !r)
+    //         return false
+    //     if(l.val==r.val)
+    //         return isMirror(l.left, r.right) && isMirror(l.right, r.left)
+    //     return false
     // }
-    // return isSame(root.left, root.right)
-
+    // return isMirror(root.left, root.right)
+    
     // 非递归写法
-     if(!root)
-        return true
-    let leftStack = [], rightStack = []
-    let curLeft = root.left, curRight = root.right
-    while(curLeft || curRight || leftStack.length || rightStack.length) {
-        while(curLeft) {
-            leftStack.push(curLeft)
-            curLeft = curLeft.left
+    if(!root)
+       return true
+    let queue = []
+    queue.push(root.left, root.right)   //队列添加左右孩子
+    while(queue.length) {
+        let len = queue.length, temp = []
+        for(let i=0; i<len; i+=2) {
+            l = queue.shift(), r = queue.shift()
+            // 其中有一个不存在直接返回 false
+            if((l && !r) || (!l && r))
+                return false
+            if(l && r) {
+                // 节点值不相同返回 false
+                if(l.val!==r.val)
+                    return false
+                queue.push(l.left, r.right)
+                queue.push(l.right, r.left)
+            }
         }
-        while(curRight) {
-            rightStack.push(curRight)
-            curRight = curRight.right
-        }
-        if(leftStack.length !== rightStack.length)  // 栈的高度不相等，说明结构不对称
-            return false
-        curLeft = leftStack.pop()
-        curRight = rightStack.pop()
-        if(curLeft.val !== curRight.val)    // 两个栈出栈的节点值不相等 不对称
-            return false
-        curLeft = curLeft.right
-        curRight = curRight.left
     }
     return true
 };
