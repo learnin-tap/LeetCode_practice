@@ -1,15 +1,16 @@
 /**
- * @param {number[][]} A
+ * @param {number[][]} matrix
  * @return {number[][]}
  */
-var transpose = function(A) {
-    var B=[];
-    for(var i=0;i<A[0].length;i++){
-        var temp=[];
-        for(var j=0;j<A.length;j++){
-            temp.push(A[j][i]);
+var transpose = function(matrix) {
+    // 时间O(m*n),m n 分别对应矩阵的行和列，空间O(1)
+    let res = [], temp = []
+    for(let i=0; i<matrix[0].length; i++) {
+        temp = []
+        for(let j=0; j<matrix.length; j++) {
+            temp.push(matrix[j][i])
         }
-        B.push(temp);
+        res.push(temp)
     }
-    return B;
+    return res
 };
