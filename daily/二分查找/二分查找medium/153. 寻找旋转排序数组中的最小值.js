@@ -1,15 +1,17 @@
-/**
+﻿/**
  * @param {number[]} nums
  * @return {number}
  */
 var findMin = function(nums) {
-    let low = 0, high = nums.length-1
-    while(low<high) {
-        let mid = (low + high) >>> 1
-        if(nums[mid]>nums[high])    //说明mid处于左边的单增区间，目标在mid右侧
-            low = mid + 1
-        else
-            high = mid
+    // 时间O(logn), 空间O(1)
+    let left = 0, right = nums.length-1
+    while(left<right) {
+        let mid = (left+right) >> 1
+        if(nums[mid]>nums[right])
+            left = mid+1
+        // 不需要考虑重复元素的情况
+        else 
+            right = mid
     }
-    return nums[low]
+    return nums[left]
 };
