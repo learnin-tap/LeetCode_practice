@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Definition for a binary tree node.
  * function TreeNode(val) {
  *     this.val = val;
@@ -13,23 +13,24 @@ var levelOrder = function(root) {
     // 非递归写法
     // if(!root)
     //     return []
-    // let res = [], queue = [root], level = 0
+    // let res = [], queue = [root]
     // while(queue.length) {
-    //     res[level] = []
-    //     let levelNum = queue.length
-    //     while(levelNum--) {
-    //         const front = queue.shift()
-    //         res[level].push(front.val)
-    //         if(front.left)  queue.push(front.left)
-    //         if(front.right) queue.push(front.right)
+    //     let len = queue.length, arr = []
+    //     for(let i=0; i<len; i++) {
+    //         const node = queue.shift()
+    //         arr.push(node.val)
+    //         if(node.left)
+    //             queue.push(node.left)
+    //         if(node.right)
+    //             queue.push(node.right)
     //     }
-    //     level++
+    //     res.push(arr)
     // }
     // return res
 
     // 递归写法
-    let res = []
-    let traversal = (root,level) => {
+    const res = []
+    const traversal = (root, level) => {
         if(root) {
             if(!res[level])
                 res[level] = []
