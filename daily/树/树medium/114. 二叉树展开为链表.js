@@ -49,15 +49,12 @@ var flatten = function(root) {
             stack.push(root)
             root = root.left
         }
-        if(stack.length) {
-            let node = stack.pop()
-            root = node.right// root需要指向右孩子，右孩子的左孩子需要进行上面的while循环
-            const temp = node.right //保存右子树
-            node.right = node.left
-            node.left = null
-            while(node.right)// 一直找到最后一个右节点
-                node = node.right
-            node.right = temp//通过最后一个右孩子把之前保存的右子树接上
-        }
+        let node = stack.pop()
+        root = node.right
+        node.right = node.left
+        node.left = null
+        while(node.right)
+            node = node.right
+        node.right = root
     }
 };
